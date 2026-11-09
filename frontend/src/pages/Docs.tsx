@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { api } from '../lib/api'
+import { api, base } from '../lib/api'
 import { useAsync } from '../lib/useAsync'
 import { Code, ErrorBox, Icon, I, Section, Spinner, Table, Tabs } from '../components/ui'
 
@@ -136,7 +136,7 @@ export function Docs() {
           <>
             <Section title="REST API"
                      subtitle="Every workspace in this UI is a thin client over these endpoints. The interactive OpenAPI docs are at /docs.">
-              <a className="link inline-flex items-center gap-1 text-[12px]" href="/docs" target="_blank" rel="noreferrer">
+              <a className="link inline-flex items-center gap-1 text-[12px]" href={`${base}/docs`} target="_blank" rel="noreferrer">
                 <Icon d={I.link} className="h-3 w-3" />open the interactive API documentation
               </a>
             </Section>

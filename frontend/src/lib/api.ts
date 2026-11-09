@@ -8,7 +8,12 @@ export class ApiError extends Error {
   }
 }
 
-const base = ''
+/** API origin.
+ *  Empty in development and when the backend serves the built frontend itself
+ *  (requests are same-origin and the Vite proxy handles /api).
+ *  Set VITE_API_BASE at build time when the frontend is deployed separately —
+ *  on Vercel, say, with the backend on a container host. */
+export const base = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')
 
 async function handle(r: Response) {
   if (!r.ok) {

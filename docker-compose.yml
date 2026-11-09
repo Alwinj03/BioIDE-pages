@@ -1,0 +1,20 @@
+# Local full stack: backend on 8000, frontend dev server on 5173.
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports: ["8000:8000"]
+    volumes:
+      - bioide-data:/data
+    environment:
+      BIOIDE_ALLOW_CODE_EXEC: "0"     # set to 1 only if you trust everyone who can reach it
+      BIOIDE_CONTACT_EMAIL: ""
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 40s
+
+volumes:
+  bioide-data:

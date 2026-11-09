@@ -1,0 +1,38 @@
+MIT License
+
+Copyright (c) 2026 Alwin Joshua V.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+The bundled sample data is redistributed from public sources under their own
+terms, and is not covered by the licence above:
+
+  * Yersinia pestis plasmid pPCP1 (NC_005816) and HIV-1 capsid C-terminal
+    domain (1A8O) — public domain records from NCBI RefSeq and the RCSB PDB,
+    redistributed via the Biopython test suite.
+  * Airway smooth muscle RNA-seq counts (GSE52778) — public GEO submission;
+    Himes et al. (2014) PLoS ONE 9(6):e99625. Counts as distributed with the
+    Bioconductor 'airway' package.
+  * Escherichia coli core and iJO1366 metabolic models — distributed with
+    COBRApy; Orth et al. (2010) EcoSal Plus and Orth et al. (2011) Mol Syst
+    Biol 7:535.
+
+Cite the original sources, not BioIDE, for any work derived from them.

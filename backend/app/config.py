@@ -25,6 +25,12 @@ class Settings:
     anthropic_api_key: str = field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY", ""))
     openai_api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
 
+    # Browser origins allowed to call this API. "*" suits local use, where the
+    # backend serves the frontend itself. Set an explicit list when the frontend
+    # is deployed separately (a Vercel domain, say) so the API is not open to
+    # every page on the web.
+    cors_origins: str = field(default_factory=lambda: os.getenv("BIOIDE_CORS_ORIGINS", "*"))
+
     # Literature APIs ask for a contact email in polite-pool requests (optional).
     contact_email: str = field(default_factory=lambda: os.getenv("BIOIDE_CONTACT_EMAIL", ""))
     ncbi_api_key: str = field(default_factory=lambda: os.getenv("NCBI_API_KEY", ""))
@@ -51,6 +57,12 @@ class Settings:
             self.llm_model = {"anthropic": "claude-sonnet-4-5", "openai": "gpt-4o-mini"}.get(self.llm_provider, "")
 
     @property
+    def allowed_origins(self) -> list[str]:
+        if self.cors_origins.strip() == "*":
+            return ["*"]
+        return [o.strip().rstrip("/") for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
     def llm_enabled(self) -> bool:
         return self.llm_provider in {"anthropic", "openai"}
 
@@ -64,6 +76,7 @@ class Settings:
             "exec_timeout_s": self.exec_timeout_s,
             "max_upload_mb": self.max_upload_mb,
             "data_dir": str(self.data_dir),
+            "cors_origins": self.allowed_origins,
         }
 
 

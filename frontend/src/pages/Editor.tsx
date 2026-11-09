@@ -13,7 +13,7 @@ import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
   },
 }
 loader.config({ monaco })
-import { api } from '../lib/api'
+import { api, base } from '../lib/api'
 import { useAsync } from '../lib/useAsync'
 import { Code, Empty, ErrorBox, Icon, I, Section, Spinner, Table } from '../components/ui'
 
@@ -66,7 +66,9 @@ print("fermentation products:", secreted)
 from Bio.Seq import Seq
 from Bio.SeqUtils import gc_fraction
 
-record = SeqIO.read("/home/claude/bioide/backend/app/data/samples/Ypestis_pPCP1_NC_005816.gb", "genbank")
+# The bundled records ship with the backend; this resolves wherever it is installed.
+from app.config import SAMPLES_DIR
+record = SeqIO.read(SAMPLES_DIR / "Ypestis_pPCP1_NC_005816.gb", "genbank")
 seq = str(record.seq).upper()
 print(record.id, len(seq), "bp, GC", round(gc_fraction(seq) * 100, 2), "%")
 
@@ -84,9 +86,9 @@ for f in cds[:5]:
 from pydeseq2.dds import DeseqDataSet
 from pydeseq2.ds import DeseqStats
 
-base = "/home/claude/bioide/backend/app/data/samples"
-counts = pd.read_csv(f"{base}/airway_counts.csv.gz", index_col=0)
-meta = pd.read_csv(f"{base}/airway_metadata.csv", index_col=0)
+from app.config import SAMPLES_DIR
+counts = pd.read_csv(SAMPLES_DIR / "airway_counts.csv.gz", index_col=0)
+meta = pd.read_csv(SAMPLES_DIR / "airway_metadata.csv", index_col=0)
 
 keep = counts.sum(axis=1) >= 10
 dds = DeseqDataSet(counts=counts.loc[keep].T.astype(int), metadata=meta,
@@ -168,7 +170,7 @@ export function Editor({ projectId }: { projectId: string | null }) {
               {files.data?.files?.length > 0 && (
                 <div className="mt-2 space-y-1">
                   {files.data.files.map((f: any) => (
-                    <a key={f.name} href={`/api/notebook/${session}/file/${encodeURIComponent(f.name)}`}
+                    <a key={f.name} href={`${base}/api/notebook/${session}/file/${encodeURIComponent(f.name)}`}
                        target="_blank" rel="noreferrer"
                        className="block rounded border border-line bg-bg px-2 py-1 text-[10.5px] hover:border-accent/50">
                       <span className="mono text-accent">{f.name}</span>
@@ -256,9 +258,9 @@ export function Editor({ projectId }: { projectId: string | null }) {
                   )}
                   {cell.out.new_files?.filter((f: string) => /\.(png|jpg|svg)$/i.test(f)).map((f: string) => (
                     <div key={f} className="border-t border-line p-3">
-                      <img src={`/api/notebook/${cell.out.session}/file/${encodeURIComponent(f)}`}
+                      <img src={`${base}/api/notebook/${cell.out.session}/file/${encodeURIComponent(f)}`}
                            alt={f} className="hidden" />
-                      <a className="link text-[11px]" href={`/api/notebook/${cell.out.session}/file/${encodeURIComponent(f)}`}
+                      <a className="link text-[11px]" href={`${base}/api/notebook/${cell.out.session}/file/${encodeURIComponent(f)}`}
                          target="_blank" rel="noreferrer">
                         <Icon d={I.chart} className="inline h-3 w-3" /> open {f}
                       </a>

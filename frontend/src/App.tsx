@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { api } from './lib/api'
+import { api, base } from './lib/api'
 import { Icon, I } from './components/ui'
 import { Assistant } from './components/Assistant'
 import { Home } from './pages/Home'
@@ -132,7 +132,7 @@ export default function App() {
             <option value="">no project (runs unlinked)</option>
             {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
           </select>
-          <a className="btn-ghost hidden lg:inline-flex" href="/docs" target="_blank" rel="noreferrer">
+          <a className="btn-ghost hidden lg:inline-flex" href={`${base}/docs`} target="_blank" rel="noreferrer">
             <Icon d={I.docs} className="h-3.5 w-3.5" />API
           </a>
           <button className="btn-ghost hidden lg:inline-flex" onClick={() => navigate('docs')}>

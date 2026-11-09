@@ -22,7 +22,13 @@ from .store import store
 app = FastAPI(title="BioIDE API", version="0.1.0",
               description="Computational biology IDE backend. Every numerical result is produced by a named "
                           "library call and recorded as a provenance run.")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.allowed_origins,
+    allow_credentials=False,          # no cookie auth exists; keep it off
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 MAX_BYTES = settings.max_upload_mb * 1024 * 1024
 

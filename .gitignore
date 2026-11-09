@@ -8,3 +8,6 @@ backend/static/
 .env
 *.sqlite3
 .DS_Store
+
+dist/
+.vercel/

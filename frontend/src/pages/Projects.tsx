@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { api } from '../lib/api'
+import { api, base } from '../lib/api'
 import { useAsync } from '../lib/useAsync'
 import { Code, Empty, ErrorBox, ExecBadge, Icon, I, Section, Spinner, Stat, Table, Tabs } from '../components/ui'
 
@@ -244,7 +244,7 @@ export function Projects({ projectId, setProjectId, pending, onNavigate }: {
                               <span className="chip">{dd.size}</span>
                               {dd.file && (
                                 <a className="btn ml-auto px-2 py-1 text-[11px]"
-                                   href={`/api/samples/${s.id}/data/${dd.file}`} target="_blank" rel="noreferrer">
+                                   href={`${base}/api/samples/${s.id}/data/${dd.file}`} target="_blank" rel="noreferrer">
                                   <Icon d={I.down} className="h-3 w-3" />download
                                 </a>
                               )}
@@ -292,7 +292,7 @@ export function Projects({ projectId, setProjectId, pending, onNavigate }: {
                              <button className="btn px-2 py-1 text-[11px]" onClick={() => report.run(projectId)}>
                                <Icon d={I.docs} className="h-3 w-3" />Generate
                              </button>
-                             <a className="btn px-2 py-1 text-[11px]" href={`/api/projects/${projectId}/export`}
+                             <a className="btn px-2 py-1 text-[11px]" href={`${base}/api/projects/${projectId}/export`}
                                 target="_blank" rel="noreferrer">
                                <Icon d={I.down} className="h-3 w-3" />Export JSON
                              </a>

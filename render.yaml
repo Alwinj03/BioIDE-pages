@@ -1,0 +1,24 @@
+# One-click backend deploy on Render. Point Render at this repo; it reads this file.
+services:
+  - type: web
+    name: bioide-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter          # free tier sleeps and has 512 MB RAM: too little for iJO1366 FVA
+    healthCheckPath: /api/health
+    envVars:
+      - key: BIOIDE_DATA_DIR
+        value: /data
+      - key: BIOIDE_ALLOW_CODE_EXEC
+        value: "0"
+      - key: BIOIDE_ALLOW_LOCAL_INSTALL
+        value: "0"
+      - key: BIOIDE_CONTACT_EMAIL
+        sync: false        # set in the dashboard
+      - key: ANTHROPIC_API_KEY
+        sync: false        # optional; enables the conversational agent
+    disk:
+      name: bioide-data
+      mountPath: /data
+      sizeGB: 1
