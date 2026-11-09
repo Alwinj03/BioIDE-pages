@@ -177,6 +177,15 @@ VITE_API_BASE = https://bioide-api.onrender.com      # no trailing slash
 
 It is baked in at build time, so a change needs a rebuild.
 
+### GitHub Pages alternative
+
+The `Deploy GitHub Pages` workflow publishes the frontend at
+`https://alwinj03.github.io/BioIDE-pages/` on pushes to `main`. In the repository's
+Settings → Secrets and variables → Actions → Variables, set `VITE_API_BASE` to the
+deployed backend origin (without a trailing slash) to enable API-backed features.
+The backend must also allow the Pages origin in `BIOIDE_CORS_ORIGINS`. GitHub Pages
+hosts only the static frontend; it does not run the Python backend.
+
 ### 3 · Check the two halves agree
 
 ```bash
